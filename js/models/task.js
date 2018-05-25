@@ -1,5 +1,4 @@
-function task() {
-	label:string,
-	caomplated:boolean,
-	id:number
+function Task (label, completed){
+   this.label=label;
+   this.completed=completed;
 }
