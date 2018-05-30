@@ -72,9 +72,35 @@ function unfinishTask() {
     bindTaskEvents(listItem, finishTask)
     save();
 }
+
+function renderTasks(tasks) {
+    var tasksContainer = document.getElementById('id');
+    var resultTasks = document.createDocumentFragment();
+
+    tasks.forEach(function (task) {
+          var newTaskElement = createNewElement(task);
+          resultTasks.apendChild(newTaskElement);
+    });
+
+   tasksContainer.appendChild(resultTasks);
+}
+
+
+function clearTasks(){
+	var listItem = this.parentNode;
+    var ul = listItem.parentNode;
+    ul.removeChild(listItem);
+	var listItem = createNewElement(storage.tasks);
+	
+
+}
+
+
+
 function refreshview(tasks) {
-tasks.forEach(function(tasks)
-var el=view.renderTask(tasks);
+	clearTasks();
+    tasks.forEach(function(tasks)
+    var el=view.renderTask(tasks);
 }
 
 function addTask() {
