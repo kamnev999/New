@@ -1,4 +1,4 @@
-var addButton = document.getElementById('add');
+(var addButton = document.getElementById('add');
 var inputTask = document.getElementById('new-task');
 var unfinishedTasks = document.getElementById('unfinished-tasks');
 var finishedTasks = document.getElementById('finished-tasks');
@@ -73,9 +73,38 @@ function unfinishTask() {
     save();
 }
 function refreshview(tasks) {
-cleartasks();
-tasks.forEach(function(tasks);
+tasks.forEach(function(tasks)
 var el=view.renderTask(tasks);
 }
 
+function addTask() {
+    if (inputTask.value) {
+        var listItem = createNewElement(inputTask.value, false);
+        unfinishedTasks.appendChild(listItem);
+        bindTaskEvents(listItem, finishTask)
+        inputTask.value = "";
+
+	}
+    save();
+	
+}
 addButton.onclick = addTask;
+
+function deleteTask() {
+    var listItem = this.parentNode;
+    var ul = listItem.parentNode;
+    ul.removeChild(listItem);
+    save();
+}
+
+function bindTaskEvents(listItem, checkboxEvent) {
+    var checkbox = listItem.querySelector('button.checkbox');
+    var editButton = listItem.querySelector('button.edit');
+    var deleteButton = listItem.querySelector('button.delete');
+    checkbox.onclick = checkboxEvent;
+    editButton.onclick = editTask;
+    deleteButton.onclick = deleteTask;
+
+}())
+
+
