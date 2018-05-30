@@ -5,7 +5,8 @@ var tasks=new Task(inputTask.value, false);
 }
 function deleteTask(label){
 var tasks=Tasks.findOne(label);
-Tasks.remove(label); 
+Tasks.remove(label);
+view.refreshView(tasks); 
 }
 	
 	());
