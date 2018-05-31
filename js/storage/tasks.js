@@ -1,4 +1,4 @@
-var tasks = (function () {
+var Tasks = (function () {
 	var tasks = [];
 	return tasks;
 }());

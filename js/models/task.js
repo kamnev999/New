@@ -1,5 +1,4 @@
-(function Task (label, completed, id){
-   this.label=label;
-   this.completed=completed;
-   this.id=id;
-}());
+function Task (label, completed){
+	this.label=label;
+	this.completed=completed;
+}
