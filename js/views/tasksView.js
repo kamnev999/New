@@ -78,23 +78,26 @@ var TasksView = (function () {
 		var resultTasks = document.createDocumentFragment();
 
 		tasks.forEach(function (task) {
-			  var newTaskElement = createNewElement(task);
+			  var newTaskElement = createNewElement(task.label);
 			  resultTasks.appendChild(newTaskElement);
 		});
 
 	   tasksContainer.appendChild(resultTasks);
+        bindTaskEvents(renderTasks.task, finishTask)
 	}
 
 
 	function clearTasks(){
-		var listItem = this.parentNode;
+		var tasks = document.getElementById('tasks');
+		var listItem = this.tasks;
 		var ul = listItem.parentNode;
 		ul.removeChild(listItem);
 		var listItem = createNewElement(storage.tasks);
+	   
 	}
 
 	function refreshView(tasks) {
-		clearTasks();
+		//clearTasks();
 		renderTasks(tasks);
 	}
 
