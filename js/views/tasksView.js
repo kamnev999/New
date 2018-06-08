@@ -6,7 +6,8 @@ var TasksView = (function () {
 
 	function createNewElement(task, finished) {
 		var listItem = document.createElement('li');
-		var checkbox = document.createElement('button');
+		var checkbox = document.createElement('input');
+		checkbox.type = 'checkbox';
 		if(finished) {
 			checkbox.className = "material-icons checkbox";
 			checkbox.innerHTML = "<i class='material-icons'>check_box</i>";
@@ -30,7 +31,9 @@ var TasksView = (function () {
 		listItem.appendChild(input);
 		listItem.appendChild(deleteButton);
 		listItem.appendChild(editButton);
+		bindTaskEvents(listItem, finishTask);
 		return listItem;
+		        
 	}
 
 	function editTask() {
@@ -44,7 +47,7 @@ var TasksView = (function () {
 			label.innerText = input.value;
 			editButton.className = "material-icons edit";
 			editButton.innerHTML = "<i class='material-icons'>edit</i>";
-			save();
+			
 		} else {
 			input.value = label.innerText;
 			editButton.className = "material-icons save";
@@ -55,7 +58,7 @@ var TasksView = (function () {
 
 	function finishTask() {
 		var listItem = this.parentNode;
-		var checkbox = listItem.querySelector('button.checkbox');
+		var checkbox = listItem.querySelector('input.checkbox');
 		checkbox.className = "material-icons checkbox";
 		checkbox.innerHTML = "<i class='material-icons'>check_box</i>";
 		finishedTasks.appendChild(listItem);
@@ -65,45 +68,50 @@ var TasksView = (function () {
 
 	function unfinishTask() {
 		var listItem = this.parentNode;
-		var checkbox = listItem.querySelector('button.checkbox');
+		var checkbox = listItem.querySelector('input.checkbox');
 		checkbox.className = "material-icons checkbox";
 		checkbox.innerHTML = "<i class='material-icons'>check_box_outline_blank</i>";
 		unfinishedTasks.appendChild(listItem);
 		bindTaskEvents(listItem, finishTask)
-		save();
+		
 	}
 
 	function renderTasks(tasks) {
-		var tasksContainer = document.getElementById('unfinished-tasks');
-		var resultTasks = document.createDocumentFragment();
+		var unfinishedTasksContainer = document.getElementById('unfinished-tasks');
+		var finishedTasksContainer = document.getElementById('unfinished-tasks');
+		var unfinishedTasks = document.createDocumentFragment();
+		var finishedTasks = document.createDocumentFragment();
 
 		tasks.forEach(function (task) {
 			  var newTaskElement = createNewElement(task.label);
-			  resultTasks.appendChild(newTaskElement);
+			  
+			  if (task.completed) {
+			  	finishedTasks.appendChild(newTaskElement);
+			  } else {
+			  	unfinishedTasks.appendChild(newTaskElement);
+			  }
 		});
 
-	   tasksContainer.appendChild(resultTasks);
-        bindTaskEvents(renderTasks.task, finishTask)
+	   finishedTasksContainer.appendChild(finishedTasks);
+	   unfinishedTasksContainer.appendChild(unfinishedTasks);
+       
 	}
 
 
 	function clearTasks(){
-		var tasks = document.getElementById('tasks');
-		var listItem = this.tasks;
-		var ul = listItem.parentNode;
-		ul.removeChild(listItem);
-		var listItem = createNewElement(storage.tasks);
-	   
+		var unfinishedTasks = document.getElementById('unfinished-tasks');
+		unfinishedTasks.innerHTML = '';
 	}
 
 	function refreshView(tasks) {
-		//clearTasks();
+		clearTasks();
 		renderTasks(tasks);
 	}
 
 	function addTask() {
 		if (inputTask.value) {
 			TaskController.addTask(inputTask.value);
+			        
 		}
 	}
 
@@ -114,7 +122,7 @@ var TasksView = (function () {
 	}
 
 	function bindTaskEvents(listItem, checkboxEvent) {
-		var checkbox = listItem.querySelector('button.checkbox');
+		var checkbox = listItem.querySelector('input.checkbox');
 		var editButton = listItem.querySelector('button.edit');
 		var deleteButton = listItem.querySelector('button.delete');
 		
@@ -126,8 +134,8 @@ var TasksView = (function () {
 		checkbox.addEventListener=(checkboxEvent);
 		editButton.addEventListener = (editTask);
 		deleteButton.addEventListener = (deleteTask);
-		
 		*/
+		
 	}
 	
 	addButton.onclick = addTask;
