@@ -93,7 +93,7 @@ label[for='new-task'] {
 
 input#new-task {
     float: left;
-    width: 88%;
+    width: 80%;
 }
 
 p > button:hover {
