@@ -110,8 +110,7 @@ var TasksView = (function () {
 
 	function addTask() {
 		if (inputTask.value) {
-			TaskController.addTask(inputTask.value);
-			        
+			TaskController.addTask(inputTask.value);        
 		}
 	}
 
@@ -119,6 +118,9 @@ var TasksView = (function () {
 		var listItem = this.parentNode;
 		var ul = listItem.parentNode;
 		ul.removeChild(listItem);
+		
+		//Tasks.pop(tasks);
+		//refreshView(Tasks);
 	}
 
 	function bindTaskEvents(listItem, checkboxEvent) {
