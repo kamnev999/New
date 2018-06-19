@@ -17,7 +17,7 @@ var TasksView = (function () {
 		}
 
 		var label = document.createElement('label');
-		label.innerText = task;
+		label.innerText = task.label;
 		var input = document.createElement('input');
 		input.type = "text";
 		var editButton = document.createElement('button');
@@ -31,13 +31,14 @@ var TasksView = (function () {
 		listItem.appendChild(input);
 		listItem.appendChild(deleteButton);
 		listItem.appendChild(editButton);
+		listItem.setAttribute('task-id', task.id);
 		bindTaskEvents(listItem, finishTask);
 		return listItem;
 		        
 	}
 
 	function editTask() {
-		console.log(2);
+		//console.log(2);
 		var editButton = this;
 		var listItem = this.parentNode;
 		var label = listItem.querySelector('label');
@@ -83,7 +84,7 @@ var TasksView = (function () {
 		var finishedTasks = document.createDocumentFragment();
 
 		tasks.forEach(function (task) {
-			  var newTaskElement = createNewElement(task.label);
+			  var newTaskElement = createNewElement(task);
 			  
 			  if (task.completed) {
 			  	finishedTasks.appendChild(newTaskElement);
@@ -118,9 +119,11 @@ var TasksView = (function () {
 		var listItem = this.parentNode;
 		var ul = listItem.parentNode;
 		ul.removeChild(listItem);
-		
-		//Tasks.pop(tasks);
-		//refreshView(Tasks);
+		var taskId = listItem.getAttribute('task-id');
+		var task = Task(label, completed, taskId);
+		TaskController.deleteTask(task);
+		//Tasks.remove(taskId);
+		refreshView(Tasks);
 	}
 
 	function bindTaskEvents(listItem, checkboxEvent) {
