@@ -7,16 +7,35 @@ var TaskController = (function () {
 	}
 
 	function deleteTask(taskId){
-		//var tasks = Tasks.findOne(task.label);
-		var task = Tasks.lastIndexOf(taskId);
+		var taskIndex = Tasks.findIndex(function (taskIndex) {
+            if (Tasks.id=taskId){
+			taskIndex=taskId;
+			}
+				
+		});
 		//Tasks.remove(task.id);
-		delete Tasks[task];
-		TasksView.refreshView(tasks); 
+		Tasks = Tasks.slice(taskIndex, 1);
+		//delete Tasks[task];
+		TasksView.refreshView(Tasks); 
+	}
+	
+	function editTask(taskId,label){
+		var index = 0;
+		
+		var task = new Task(value, false, taskId);
+		Tasks.splice(taskId,1, label);
+		
+		Tasks[index].label = label;
+		
+		
+		
+		TasksView.refreshView(Tasks); 	
 	}
 	
 	return {
 		addTask: addTask,
-		deleteTask:deleteTask,
+		deleteTask: deleteTask,
+		editTask: editTask,
 	};
 }());
 	

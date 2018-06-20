@@ -38,7 +38,6 @@ var TasksView = (function () {
 	}
 
 	function editTask() {
-		//console.log(2);
 		var editButton = this;
 		var listItem = this.parentNode;
 		var label = listItem.querySelector('label');
@@ -48,13 +47,17 @@ var TasksView = (function () {
 			label.innerText = input.value;
 			editButton.className = "material-icons edit";
 			editButton.innerHTML = "<i class='material-icons'>edit</i>";
-			
+			var taskId = listItem.getAttribute('task-id');
+		    TaskController.editTask(taskId, label.innerText);
 		} else {
 			input.value = label.innerText;
 			editButton.className = "material-icons save";
 			editButton.innerHTML = "<i class='material-icons'>save</i>";
+			
 		}
 		listItem.classList.toggle('editMode');
+		
+		
 	}
 
 	function finishTask() {
@@ -117,12 +120,12 @@ var TasksView = (function () {
 
 	function deleteTask() {
 		var listItem = this.parentNode;
-		var ul = listItem.parentNode;
-		ul.removeChild(listItem);
+		//var ul = listItem.parentNode;
+		//ul.removeChild(listItem);
 		var taskId = listItem.getAttribute('task-id');
 		TaskController.deleteTask(taskId);
 		//Tasks.remove(taskId);
-		refreshView(Tasks);
+		//refreshView(Tasks);
 	}
 
 	function bindTaskEvents(listItem, checkboxEvent) {
