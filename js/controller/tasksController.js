@@ -6,9 +6,11 @@ var TaskController = (function () {
 		TasksView.refreshView(Tasks);
 	}
 
-	function deleteTask(task){
-		var tasks = Tasks.findOne(task.label);
-		Tasks.remove(task.id);
+	function deleteTask(taskId){
+		//var tasks = Tasks.findOne(task.label);
+		var task = Tasks.lastIndexOf(taskId);
+		//Tasks.remove(task.id);
+		delete Tasks[task];
 		TasksView.refreshView(tasks); 
 	}
 	

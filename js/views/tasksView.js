@@ -120,8 +120,7 @@ var TasksView = (function () {
 		var ul = listItem.parentNode;
 		ul.removeChild(listItem);
 		var taskId = listItem.getAttribute('task-id');
-		var task = Task(label, completed, taskId);
-		TaskController.deleteTask(task);
+		TaskController.deleteTask(taskId);
 		//Tasks.remove(taskId);
 		refreshView(Tasks);
 	}
