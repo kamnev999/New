@@ -7,25 +7,29 @@ var TaskController = (function () {
 	}
 
 	function deleteTask(taskId){
-		var taskIndex = Tasks.findIndex(function (taskIndex) {
-            if (Tasks.id=taskId){
-			taskIndex=taskId;
-			}
-				
+		var taskIndex = Tasks.findIndex(function (task) {
+            return Tasks.id=taskId		
 		});
-		//Tasks.remove(task.id);
-		Tasks = Tasks.slice(taskIndex, 1);
-		//delete Tasks[task];
+		//Tasks = Tasks.slice(taskIndex, 1);
+		delete Tasks[taskIndex];
+		
+		/*if (taskId!=0) {}
+			else if (taskId<=staticId) {
+				
+		}*/
+		
 		TasksView.refreshView(Tasks); 
 	}
 	
 	function editTask(taskId,label){
-		var index = 0;
+		var taskIndex = Tasks.findIndex(function (task) {
+            return Tasks.id=taskId;		
+		});
 		
-		var task = new Task(value, false, taskId);
-		Tasks.splice(taskId,1, label);
+		//var task = new Task(value, false, taskId);
+		//Tasks.splice(taskId,1, label);
 		
-		Tasks[index].label = label;
+		Tasks[taskIndex].label = label;
 		
 		
 		
